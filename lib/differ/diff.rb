@@ -81,6 +81,20 @@ module Differ
         sum << part
       end
     end
+    
+    def highlight_inserts
+      result = ""
+      @raw.each do |part|
+        if part.is_a?(String)
+          result << part
+        elsif part.is_a?(Change)
+          if part.insert?
+            result << "<ins>" + part.insert + "</ins>"
+          end
+        end
+      end
+      result
+    end
 
   protected
     def raw_array
