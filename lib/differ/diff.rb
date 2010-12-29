@@ -82,6 +82,14 @@ module Differ
       end
     end
     
+    def insertions
+      @raw.select do |part|
+        part.is_a?(Change) && part.insert?
+      end.collect do |part|
+        part.insert.split(" ")
+      end.flatten
+    end
+    
     def highlight_inserts
       result = ""
       @raw.each do |part|
